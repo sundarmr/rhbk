@@ -4,21 +4,27 @@ metadata:
   name: keycloak
   namespace: keycloak
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "2"
+    # CRD doesn't exist when Argo validates the sync; apply it once the operator is up
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
-  instances: 2
+  instances: 1
   db:
     vendor: postgres
-    host: 10.217.4.234:5432
+    host: postgresql.postgres-dev.svc.cluster.local
+    port: 5432
+    database: keycloak          # change if your database has a different name
     usernameSecret:
       name: keycloak-db-secret
       key: username
     passwordSecret:
       name: keycloak-db-secret
       key: password
+  http:
+    httpEnabled: true           # TLS terminates at the OpenShift router
   hostname:
-    hostname: sso.apps.your-cluster-domain.com
+    hostname: keycloak.apps.CHANGE-ME.example.com   # set to your route host
   proxy:
     headers: xforwarded
   ingress:
-    className: openshift-default
+    enabled: true
