@@ -7,15 +7,13 @@ spec:
   instances: 2
   db:
     vendor: postgres
-    host: postgres-service
+    host: 10.217.4.234:5432
     usernameSecret:
       name: keycloak-db-secret
       key: username
     passwordSecret:
       name: keycloak-db-secret
       key: password
-  http:
-    tlsSecret: keycloak-tls-secret
   hostname:
     hostname: sso.apps.your-cluster-domain.com
   proxy:
