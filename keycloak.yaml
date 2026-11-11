@@ -8,7 +8,7 @@ metadata:
     # CRD doesn't exist when Argo validates the sync; apply it once the operator is up
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
-  instances: 1
+  instances: 2
   db:
     vendor: postgres
     host: postgresql.postgres-dev.svc.cluster.local
