@@ -23,7 +23,7 @@ spec:
   http:
     httpEnabled: true           # TLS terminates at the OpenShift router
   hostname:
-    hostname: keycloak.apps.CHANGE-ME.example.com   # set to your route host
+    hostname: keycloak-keycloak.apps-crc.testing   # set to your route host
   proxy:
     headers: xforwarded
   ingress:
