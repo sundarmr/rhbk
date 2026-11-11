@@ -5,9 +5,13 @@ metadata:
   namespace: keycloak
   annotations:
     argocd.argoproj.io/sync-wave: "0"
+    # deleting a Subscription does not remove the CSV/CRDs; don't let Argo orphan the operator
+    argocd.argoproj.io/sync-options: Prune=false
 spec:
-  channel: stable-v26
-  installPlanApproval: Automatic
+  # Verify the channel on your cluster:
+  # oc get packagemanifest rhbk-operator -n openshift-marketplace -o jsonpath='{.status.channels[*].name}'
+  channel: stable-v26.2
   name: rhbk-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
+  installPlanApproval: Automatic
